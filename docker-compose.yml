@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  rotativa:
+    image: wkhtml:${TAG:-latest}
+    ports:
+       - "30001:80"  
+    build:
+      context: .
+      dockerfile: Rotativa/Dockerfile
