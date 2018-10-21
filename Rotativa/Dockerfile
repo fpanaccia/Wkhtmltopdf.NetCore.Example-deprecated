@@ -16,4 +16,5 @@ RUN dotnet publish --no-restore -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+RUN chmod 755 /app/Rotativa/Linux/wkhtmltopdf
 ENTRYPOINT ["dotnet", "Rotativa.dll"]
