@@ -1,11 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2041
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28705.295
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rotativa", "Rotativa\Rotativa.csproj", "{B6CACEA2-2D08-49C5-9417-56E2D6FDB788}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3BB2BA72-9618-4F0B-9514-528C61D21746}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wkhtmltopdf.NetCore", "..\Wkhtmltopdf.NetCore\Wkhtmltopdf.NetCore\Wkhtmltopdf.NetCore.csproj", "{932F81C3-32BC-4572-9C88-FD3CAEFFF76F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rotativa-FullFramework", "Rotativa-FullFramework\Rotativa-FullFramework.csproj", "{31D4AC99-3AB2-414E-9DF9-3A2B71C67C95}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.Mvc.ViewFeatures", "C:\Users\Fabricio\Desktop\AspNetCore-release-2.2\src\Mvc\Mvc.ViewFeatures\src\Microsoft.AspNetCore.Mvc.ViewFeatures.csproj", "{BCAD13E6-B305-4705-91F5-26FD0543E9D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.Mvc.Razor", "C:\Users\Fabricio\Desktop\AspNetCore-release-2.2\src\Mvc\Mvc.Razor\src\Microsoft.AspNetCore.Mvc.Razor.csproj", "{F7A4F5C7-2C37-4765-B258-2A6D3276E020}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "..\ConsoleApp1\ConsoleApp1.csproj", "{E1115D60-E3D0-4315-91E3-E06BC0F190C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +31,26 @@ Global
 		{3BB2BA72-9618-4F0B-9514-528C61D21746}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BB2BA72-9618-4F0B-9514-528C61D21746}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BB2BA72-9618-4F0B-9514-528C61D21746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{932F81C3-32BC-4572-9C88-FD3CAEFFF76F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{932F81C3-32BC-4572-9C88-FD3CAEFFF76F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{932F81C3-32BC-4572-9C88-FD3CAEFFF76F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{932F81C3-32BC-4572-9C88-FD3CAEFFF76F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31D4AC99-3AB2-414E-9DF9-3A2B71C67C95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31D4AC99-3AB2-414E-9DF9-3A2B71C67C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31D4AC99-3AB2-414E-9DF9-3A2B71C67C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31D4AC99-3AB2-414E-9DF9-3A2B71C67C95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCAD13E6-B305-4705-91F5-26FD0543E9D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCAD13E6-B305-4705-91F5-26FD0543E9D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCAD13E6-B305-4705-91F5-26FD0543E9D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCAD13E6-B305-4705-91F5-26FD0543E9D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7A4F5C7-2C37-4765-B258-2A6D3276E020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7A4F5C7-2C37-4765-B258-2A6D3276E020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7A4F5C7-2C37-4765-B258-2A6D3276E020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7A4F5C7-2C37-4765-B258-2A6D3276E020}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1115D60-E3D0-4315-91E3-E06BC0F190C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1115D60-E3D0-4315-91E3-E06BC0F190C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1115D60-E3D0-4315-91E3-E06BC0F190C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1115D60-E3D0-4315-91E3-E06BC0F190C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

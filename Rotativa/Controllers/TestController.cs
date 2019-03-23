@@ -13,6 +13,12 @@ namespace Rotativa.Controllers
     [ApiController]
     public class TestController : Controller
     {
+        readonly IGeneratePdf _generatePdf;
+        public TestController(IGeneratePdf generatePdf)
+        {
+            _generatePdf = generatePdf;
+        }
+
         [HttpGet]
         [Route("Get")]
         public async Task<IActionResult> Get()
@@ -23,8 +29,7 @@ namespace Rotativa.Controllers
                 Number = 123456
             };
 
-            var builder = new ViewAsPdf();
-            return await builder.GetPdf("Views/Test.cshtml", data);
+            return await _generatePdf.GetPdf("Views/Test.cshtml", data);
         }
         
         [HttpGet]
@@ -44,12 +49,40 @@ namespace Rotativa.Controllers
                             </div>
                         </body>";
 
-            var builder = new HtmlAsPdf();
-            var pdf = builder.GetPDF(html);
+            var pdf = _generatePdf.GetPDF(html);
             MemoryStream pdfStream = new MemoryStream();
             pdfStream.Write(pdf, 0, pdf.Length);
             pdfStream.Position = 0;
             return new FileStreamResult(pdfStream, "application/pdf");
+        }
+
+        [HttpGet]
+        [Route("GetByRazorText")]
+        public async Task<IActionResult> GetByRazorText()
+        {
+            var html = @"@model Rotativa.Models.TestData
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                        </head>
+                        <body>
+                            <header>
+                                <h1>@Model.Text</h1>
+                            </header>
+                            <div>
+                                <h2>@Model.Number</h2>
+                            </div>
+                        </body>
+                        </html>";
+
+            var data = new TestData
+            {
+                Text = "This is a test",
+                Number = 123456
+            };
+
+            var pdf = await _generatePdf.GetPdfViewInHtml(html, data);
+            return pdf;
         }
 
         [HttpGet]
@@ -69,8 +102,7 @@ namespace Rotativa.Controllers
                             </div>
                         </body>";
 
-            var builder = new HtmlAsPdf();
-            System.IO.File.WriteAllBytes("testHard.pdf", builder.GetPDF(html));
+            System.IO.File.WriteAllBytes("testHard.pdf", _generatePdf.GetPDF(html));
             return Ok();
         }
         
@@ -84,8 +116,7 @@ namespace Rotativa.Controllers
                 Number = 123456
             };
 
-            var builder = new ViewAsPdf();
-            System.IO.File.WriteAllBytes("test.pdf", await builder.GetByteArray("Views/Test.cshtml", data));
+            System.IO.File.WriteAllBytes("test.pdf", await _generatePdf.GetByteArray("Views/Test.cshtml", data));
             return Ok();
         }
 
