@@ -13,10 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.1916590" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Wkhtmltopdf.NetCore\Wkhtmltopdf.NetCore\Wkhtmltopdf.NetCore.csproj" />
+    <PackageReference Include="Wkhtmltopdf.NetCore" Version="2.0.1-preview" />
   </ItemGroup>
 
   <ItemGroup>

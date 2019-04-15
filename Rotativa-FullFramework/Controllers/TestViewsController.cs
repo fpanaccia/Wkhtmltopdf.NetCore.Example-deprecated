@@ -1,19 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc;
 using Rotativa_FullFramework.Models;
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 using Wkhtmltopdf.NetCore;
 
-namespace Rotativa_FullFramework.Controllers
+namespace Rotativa.Controllers
 {
-    public class HomeController : Controller
+    public class TestViewsController : Controller
     {
-        IGeneratePdf _generatePdf;
-
-        [Obsolete]
-        public HomeController()
+        readonly IGeneratePdf _generatePdf;
+        public TestViewsController()
         {
             var services = new ServiceCollection();
             services.AddWkhtmltopdf();
@@ -21,7 +17,39 @@ namespace Rotativa_FullFramework.Controllers
             _generatePdf = servicesProvider.GetRequiredService<IGeneratePdf>();
         }
 
-        public async Task<FileStreamResult> GetByHtml()
+        [HttpGet]
+        [Route("Get")]
+        public async Task<IActionResult> Get()
+        {
+            var data = new TestData
+            {
+                Text = "This is a test",
+                Number = 123456
+            };
+
+            return await _generatePdf.GetPdf("Views/Test.cshtml", data);
+        }
+
+        [HttpGet]
+        [Route("GetByteArray")]
+        public async Task<IActionResult> GetByteArray()
+        {
+            var data = new TestData
+            {
+                Text = "This is a test",
+                Number = 123456
+            };
+
+            var pdf = await _generatePdf.GetByteArray("Views/Test.cshtml", data);
+            var pdfStream = new System.IO.MemoryStream();
+            pdfStream.Write(pdf, 0, pdf.Length);
+            pdfStream.Position = 0;
+            return new FileStreamResult(pdfStream, "application/pdf");
+        }
+
+        [HttpGet]
+        [Route("GetByHtml")]
+        public IActionResult GetByHtml()
         {
             var html = @"<!DOCTYPE html>
                         <html>
@@ -37,14 +65,15 @@ namespace Rotativa_FullFramework.Controllers
                         </body>";
 
             var pdf = _generatePdf.GetPDF(html);
-            MemoryStream pdfStream = new MemoryStream();
+            var pdfStream = new System.IO.MemoryStream();
             pdfStream.Write(pdf, 0, pdf.Length);
             pdfStream.Position = 0;
             return new FileStreamResult(pdfStream, "application/pdf");
         }
 
         [HttpGet]
-        public async Task SaveByHtml()
+        [Route("SaveByHtml")]
+        public IActionResult SaveByHtml()
         {
             var html = @"<!DOCTYPE html>
                         <html>
@@ -60,10 +89,12 @@ namespace Rotativa_FullFramework.Controllers
                         </body>";
 
             System.IO.File.WriteAllBytes("testHard.pdf", _generatePdf.GetPDF(html));
+            return Ok();
         }
 
         [HttpGet]
-        public async Task SaveFile()
+        [Route("SaveFile")]
+        public async Task<IActionResult> SaveFile()
         {
             var data = new TestData
             {
@@ -71,38 +102,8 @@ namespace Rotativa_FullFramework.Controllers
                 Number = 123456
             };
 
-            System.IO.File.WriteAllBytes("test.pdf", await _generatePdf.GetByteArray("Views/Test/Test.cshtml", data));
-        }
-
-        [HttpGet]
-        public async Task<FileStreamResult> GetByRazorText()
-        {
-            var html = @"@Model Rotativa_FullFramework.Models.TestData
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                        </head>
-                        <body>
-                            <header>
-                                <h1>@Model.Text</h1>
-                            </header>
-                            <div>
-                                <h2>@Model.Number</h2>
-                            </div>
-                        </body>
-                        </html>";
-
-            var data = new TestData
-            {
-                Text = "This is not a test",
-                Number = 12345678
-            };
-
-            var pdf = await _generatePdf.GetByteArrayViewInHtml(html, data);
-            MemoryStream pdfStream = new MemoryStream();
-            pdfStream.Write(pdf, 0, pdf.Length);
-            pdfStream.Position = 0;
-            return new FileStreamResult(pdfStream, "application/pdf");
+            System.IO.File.WriteAllBytes("test.pdf", await _generatePdf.GetByteArray("Views/Test.cshtml", data));
+            return Ok();
         }
     }
 }

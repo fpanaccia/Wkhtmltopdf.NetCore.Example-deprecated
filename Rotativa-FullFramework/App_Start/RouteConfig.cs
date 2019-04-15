@@ -16,7 +16,7 @@ namespace Rotativa_FullFramework
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Get", id = UrlParameter.Optional }
+                defaults: new { controller = "TestViews", action = "Get", id = UrlParameter.Optional }
             );
         }
     }

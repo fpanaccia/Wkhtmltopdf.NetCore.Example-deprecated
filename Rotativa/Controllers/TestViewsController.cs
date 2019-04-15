@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Rotativa.Models;
 using Wkhtmltopdf.NetCore;
@@ -11,10 +7,10 @@ namespace Rotativa.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestController : Controller
+    public class TestViewsController : Controller
     {
         readonly IGeneratePdf _generatePdf;
-        public TestController(IGeneratePdf generatePdf)
+        public TestViewsController(IGeneratePdf generatePdf)
         {
             _generatePdf = generatePdf;
         }
@@ -31,10 +27,27 @@ namespace Rotativa.Controllers
 
             return await _generatePdf.GetPdf("Views/Test.cshtml", data);
         }
-        
+
+        [HttpGet]
+        [Route("GetByteArray")]
+        public async Task<IActionResult> GetByteArray()
+        {
+            var data = new TestData
+            {
+                Text = "This is a test",
+                Number = 123456
+            };
+
+            var pdf = await _generatePdf.GetByteArray("Views/Test.cshtml", data);
+            var pdfStream = new System.IO.MemoryStream();
+            pdfStream.Write(pdf, 0, pdf.Length);
+            pdfStream.Position = 0;
+            return new FileStreamResult(pdfStream, "application/pdf");
+        }
+
         [HttpGet]
         [Route("GetByHtml")]
-        public async Task<IActionResult> GetByHtml()
+        public IActionResult GetByHtml()
         {
             var html = @"<!DOCTYPE html>
                         <html>
@@ -50,44 +63,15 @@ namespace Rotativa.Controllers
                         </body>";
 
             var pdf = _generatePdf.GetPDF(html);
-            MemoryStream pdfStream = new MemoryStream();
+            var pdfStream = new System.IO.MemoryStream();
             pdfStream.Write(pdf, 0, pdf.Length);
             pdfStream.Position = 0;
             return new FileStreamResult(pdfStream, "application/pdf");
         }
 
         [HttpGet]
-        [Route("GetByRazorText")]
-        public async Task<IActionResult> GetByRazorText()
-        {
-            var html = @"@model Rotativa.Models.TestData
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                        </head>
-                        <body>
-                            <header>
-                                <h1>@Model.Text</h1>
-                            </header>
-                            <div>
-                                <h2>@Model.Number</h2>
-                            </div>
-                        </body>
-                        </html>";
-
-            var data = new TestData
-            {
-                Text = "This is a test",
-                Number = 123456
-            };
-
-            var pdf = await _generatePdf.GetPdfViewInHtml(html, data);
-            return pdf;
-        }
-
-        [HttpGet]
         [Route("SaveByHtml")]
-        public async Task<IActionResult> SaveByHtml()
+        public IActionResult SaveByHtml()
         {
             var html = @"<!DOCTYPE html>
                         <html>
@@ -105,7 +89,7 @@ namespace Rotativa.Controllers
             System.IO.File.WriteAllBytes("testHard.pdf", _generatePdf.GetPDF(html));
             return Ok();
         }
-        
+
         [HttpGet]
         [Route("SaveFile")]
         public async Task<IActionResult> SaveFile()
@@ -119,6 +103,5 @@ namespace Rotativa.Controllers
             System.IO.File.WriteAllBytes("test.pdf", await _generatePdf.GetByteArray("Views/Test.cshtml", data));
             return Ok();
         }
-
     }
 }
