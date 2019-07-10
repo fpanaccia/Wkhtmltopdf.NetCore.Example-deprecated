@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rotativa", "Rotativa\Rotati
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3BB2BA72-9618-4F0B-9514-528C61D21746}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rotativa-FullFramework", "Rotativa-FullFramework\Rotativa-FullFramework.csproj", "{3FABAC5A-FF6C-4C39-9C5A-3D8F60431C73}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{3BB2BA72-9618-4F0B-9514-528C61D21746}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BB2BA72-9618-4F0B-9514-528C61D21746}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BB2BA72-9618-4F0B-9514-528C61D21746}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3FABAC5A-FF6C-4C39-9C5A-3D8F60431C73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FABAC5A-FF6C-4C39-9C5A-3D8F60431C73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FABAC5A-FF6C-4C39-9C5A-3D8F60431C73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FABAC5A-FF6C-4C39-9C5A-3D8F60431C73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

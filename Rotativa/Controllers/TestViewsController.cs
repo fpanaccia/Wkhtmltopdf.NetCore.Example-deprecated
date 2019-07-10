@@ -15,6 +15,10 @@ namespace Rotativa.Controllers
             _generatePdf = generatePdf;
         }
 
+        /// <summary>
+        /// View pdf generation as ActionResult
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("Get")]
         public async Task<IActionResult> Get()
@@ -28,6 +32,10 @@ namespace Rotativa.Controllers
             return await _generatePdf.GetPdf("Views/Test.cshtml", data);
         }
 
+        /// <summary>
+        /// View pdf generation as ByteArray
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetByteArray")]
         public async Task<IActionResult> GetByteArray()
@@ -45,6 +53,10 @@ namespace Rotativa.Controllers
             return new FileStreamResult(pdfStream, "application/pdf");
         }
 
+        /// <summary>
+        /// "Hardcode" html pdf generation as ByteArray
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetByHtml")]
         public IActionResult GetByHtml()
@@ -69,6 +81,10 @@ namespace Rotativa.Controllers
             return new FileStreamResult(pdfStream, "application/pdf");
         }
 
+        /// <summary>
+        /// "Hardcode" html pdf generation as ByteArray and save file
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("SaveByHtml")]
         public IActionResult SaveByHtml()
@@ -90,6 +106,10 @@ namespace Rotativa.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// View pdf generation as ByteArray and save file
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("SaveFile")]
         public async Task<IActionResult> SaveFile()

@@ -35,6 +35,10 @@ namespace Rotativa.Controllers
             _generatePdf = generatePdf;
         }
 
+        /// <summary>
+        /// String view pdf generation as ActionResult
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetByRazorText")]
         public async Task<IActionResult> GetByRazorText()
@@ -45,10 +49,13 @@ namespace Rotativa.Controllers
                 Number = 12345678
             };
 
-            var pdf = await _generatePdf.GetPdfViewInHtml(htmlView, data);
-            return pdf;
+            return await _generatePdf.GetPdfViewInHtml(htmlView, data);
         }
 
+        /// <summary>
+        /// string view pdf generation as ByteArray
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetByteArray")]
         public async Task<IActionResult> GetByteArray()
@@ -66,7 +73,10 @@ namespace Rotativa.Controllers
             return new FileStreamResult(pdfStream, "application/pdf");
         }
 
-
+        /// <summary>
+        /// Cached view pdf generation as ActionResult
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetFromEngine")]
         public async Task<IActionResult> GetFromEngine()
@@ -86,7 +96,10 @@ namespace Rotativa.Controllers
             return await _generatePdf.GetPdf("notAView", data);
         }
 
-
+        /// <summary>
+        /// Cached view and update view with string view pdf generation as ActionResult
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("UpdateAndGetFromEngine")]
         public async Task<IActionResult> UpdateAndGetFromEngine()
