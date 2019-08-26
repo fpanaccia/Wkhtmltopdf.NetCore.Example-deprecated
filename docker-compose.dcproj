@@ -5,8 +5,8 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <ProjectGuid>3bb2ba72-9618-4f0b-9514-528c61d21746</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>apitest</DockerServiceName>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/api/TestViews/Get</DockerServiceUrl>
+    <DockerServiceName>rotativa</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
