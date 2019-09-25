@@ -5,7 +5,7 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <ProjectGuid>3bb2ba72-9618-4f0b-9514-528c61d21746</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/api/TestViews/Get</DockerServiceUrl>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/TestViews/Get</DockerServiceUrl>
     <DockerServiceName>rotativa</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>

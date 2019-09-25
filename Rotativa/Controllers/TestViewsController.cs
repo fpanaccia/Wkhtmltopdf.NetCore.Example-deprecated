@@ -5,9 +5,9 @@ using Wkhtmltopdf.NetCore;
 
 namespace Rotativa.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class TestViewsController : Controller
+    public class TestViewsController : ControllerBase
     {
         readonly IGeneratePdf _generatePdf;
         public TestViewsController(IGeneratePdf generatePdf)
@@ -29,7 +29,12 @@ namespace Rotativa.Controllers
                 Number = 123456
             };
 
-            return await _generatePdf.GetPdf("Views/Test.cshtml", data);
+
+            var pdf = await _generatePdf.GetByteArray("Views/Test.cshtml", data);
+            var pdfStream = new System.IO.MemoryStream();
+            pdfStream.Write(pdf, 0, pdf.Length);
+            pdfStream.Position = 0;
+            return new FileStreamResult(pdfStream, "application/pdf");
         }
 
         /// <summary>

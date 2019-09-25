@@ -1,9 +1,9 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS base
 WORKDIR /app
 RUN apt-get update -qq && apt-get -y install libgdiplus libc6-dev
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
 WORKDIR /src
 COPY ["Rotativa/Rotativa.csproj", "src/Rotativa/"]
 RUN dotnet restore "src/Rotativa/Rotativa.csproj"
