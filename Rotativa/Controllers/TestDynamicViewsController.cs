@@ -32,6 +32,24 @@ namespace Rotativa.Controllers
         }
 
         /// <summary>
+        /// String view pdf generation as ActionResult
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetByRazorText")]
+        public async Task<IActionResult> GetByRazorText()
+        {
+            var data = new TestData
+            {
+                Text = "This is not a test",
+                Number = 12345678
+            };
+
+            return await _generatePdf.GetPdfViewInHtml(htmlView, data);
+        }
+
+
+        /// <summary>
         /// string view pdf generation as ByteArray
         /// </summary>
         /// <returns></returns>
@@ -73,11 +91,7 @@ namespace Rotativa.Controllers
                 _generatePdf.AddView("notAView", html);
             }
 
-            var pdf = await _generatePdf.GetByteArray("notAView", data);
-            var pdfStream = new System.IO.MemoryStream();
-            pdfStream.Write(pdf, 0, pdf.Length);
-            pdfStream.Position = 0;
-            return new FileStreamResult(pdfStream, "application/pdf");
+            return await _generatePdf.GetPdf("notAView", data);
         }
 
         /// <summary>
@@ -122,11 +136,7 @@ namespace Rotativa.Controllers
                 _generatePdf.UpdateView("notAView", html);
             }
 
-            var pdf = await _generatePdf.GetByteArray("notAView", data);
-            var pdfStream = new System.IO.MemoryStream();
-            pdfStream.Write(pdf, 0, pdf.Length);
-            pdfStream.Position = 0;
-            return new FileStreamResult(pdfStream, "application/pdf");
+            return await _generatePdf.GetPdf("notAView", data);
         }
     }
 }

@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.28705.295
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rotativa", "Rotativa\Rotativa.csproj", "{B6CACEA2-2D08-49C5-9417-56E2D6FDB788}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wkhtmltopdf.NetCore", "Wkhtmltopdf.NetCore\Wkhtmltopdf.NetCore.csproj", "{91C71773-D92A-416D-A406-8FF3D1CC14F9}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3BB2BA72-9618-4F0B-9514-528C61D21746}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{B6CACEA2-2D08-49C5-9417-56E2D6FDB788}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6CACEA2-2D08-49C5-9417-56E2D6FDB788}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6CACEA2-2D08-49C5-9417-56E2D6FDB788}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91C71773-D92A-416D-A406-8FF3D1CC14F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91C71773-D92A-416D-A406-8FF3D1CC14F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91C71773-D92A-416D-A406-8FF3D1CC14F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91C71773-D92A-416D-A406-8FF3D1CC14F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BB2BA72-9618-4F0B-9514-528C61D21746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BB2BA72-9618-4F0B-9514-528C61D21746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BB2BA72-9618-4F0B-9514-528C61D21746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BB2BA72-9618-4F0B-9514-528C61D21746}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -29,12 +29,7 @@ namespace Rotativa.Controllers
                 Number = 123456
             };
 
-
-            var pdf = await _generatePdf.GetByteArray("Views/Test.cshtml", data);
-            var pdfStream = new System.IO.MemoryStream();
-            pdfStream.Write(pdf, 0, pdf.Length);
-            pdfStream.Position = 0;
-            return new FileStreamResult(pdfStream, "application/pdf");
+            return await _generatePdf.GetPdf("Views/Test.cshtml", data);
         }
 
         /// <summary>
