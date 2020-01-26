@@ -158,6 +158,38 @@ namespace Rotativa.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Route("MarginTest")]
+        public async Task<IActionResult> MarginTest()
+        {
+            var options = new ConvertOptions
+            {
+                PageMargins = new Wkhtmltopdf.NetCore.Options.Margins()
+                {
+                    Left = 0,
+                    Right = 0
+                }
+            };
+
+            _generatePdf.SetConvertOptions(options);
+
+            var data = new TestData
+            {
+                Text = "This is a test",
+                Number = 123456
+            };
+
+            var pdf = await _generatePdf.GetByteArray("Views/Test.cshtml", data);
+            var pdfStream = new System.IO.MemoryStream();
+            pdfStream.Write(pdf, 0, pdf.Length);
+            pdfStream.Position = 0;
+            return new FileStreamResult(pdfStream, "application/pdf");
+        }
+
+        /// <summary>
+        /// "Hardcode" html pdf generation as ByteArray with Header
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("HeaderPagingTest")]
         public IActionResult HeaderPagingTest()
         {

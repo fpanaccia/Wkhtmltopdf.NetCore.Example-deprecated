@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Wkhtmltopdf.NetCore\Wkhtmltopdf.NetCore\Wkhtmltopdf.NetCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="wwwroot\header.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
