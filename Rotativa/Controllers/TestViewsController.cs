@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Rotativa.Models;
 using Wkhtmltopdf.NetCore;
@@ -122,6 +123,61 @@ namespace Rotativa.Controllers
 
             System.IO.File.WriteAllBytes("test.pdf", await _generatePdf.GetByteArray("Views/Test.cshtml", data));
             return Ok();
+        }
+
+        /// <summary>
+        /// "Hardcode" html pdf generation as ByteArray with Header
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("HeaderTest")]
+        public async Task<IActionResult> HeaderTest()
+        {
+            var options = new ConvertOptions
+            {
+                HeaderHtml = "http://localhost:30001/header.html",
+                PageOrientation = Wkhtmltopdf.NetCore.Options.Orientation.Landscape
+            };
+            _generatePdf.SetConvertOptions(options);
+
+            var data = new TestData
+            {
+                Text = "This is a test",
+                Number = 123456
+            };
+
+            var pdf = await _generatePdf.GetByteArray("Views/Test.cshtml", data);
+            var pdfStream = new System.IO.MemoryStream();
+            pdfStream.Write(pdf, 0, pdf.Length);
+            pdfStream.Position = 0;
+            return new FileStreamResult(pdfStream, "application/pdf");
+        }
+
+        /// <summary>
+        /// "Hardcode" html pdf generation as ByteArray with Header
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("HeaderPagingTest")]
+        public IActionResult HeaderPagingTest()
+        {
+            var options = new ConvertOptions
+            {
+                HeaderHtml = "http://localhost:30001/header.html"
+            };
+            _generatePdf.SetConvertOptions(options);
+
+            string htmlCode = "";
+            using (WebClient client = new WebClient())
+            {
+                htmlCode = client.DownloadString("https://www.spacex.com/missions");
+            }
+
+            var pdf = _generatePdf.GetPDF(htmlCode);
+            var pdfStream = new System.IO.MemoryStream();
+            pdfStream.Write(pdf, 0, pdf.Length);
+            pdfStream.Position = 0;
+            return new FileStreamResult(pdfStream, "application/pdf");
         }
     }
 }
