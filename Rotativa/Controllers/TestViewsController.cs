@@ -1,4 +1,7 @@
-﻿using System.Net;
+﻿using System;
+using System.IO;
+using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Rotativa.Models;
@@ -14,6 +17,23 @@ namespace Rotativa.Controllers
         public TestViewsController(IGeneratePdf generatePdf)
         {
             _generatePdf = generatePdf;
+        }
+
+        /// <summary>
+        /// View pdf generation as ActionResult
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetSSL")]
+        public async Task<IActionResult> GetSSL()
+        {
+            var data = new TestData
+            {
+                Text = "This is a test",
+                Number = 123456
+            };
+
+            return await _generatePdf.GetPdf("Views/TestBootstrapSSL.cshtml", data);
         }
 
         /// <summary>
