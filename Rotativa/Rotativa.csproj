@@ -10,8 +10,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
-    <PackageReference Include="Wkhtmltopdf.NetCore" Version="3.0.0" />
+    <None Include="wwwroot\footer.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
+    <PackageReference Include="Wkhtmltopdf.NetCore" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>

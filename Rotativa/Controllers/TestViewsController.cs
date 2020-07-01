@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -155,7 +156,7 @@ namespace Rotativa.Controllers
         {
             var options = new ConvertOptions
             {
-                HeaderHtml = "http://localhost:30001/header.html",
+                HeaderHtml = "http://localhost/header.html",
                 PageOrientation = Wkhtmltopdf.NetCore.Options.Orientation.Landscape
             };
             _generatePdf.SetConvertOptions(options);
@@ -215,17 +216,52 @@ namespace Rotativa.Controllers
         {
             var options = new ConvertOptions
             {
-                HeaderHtml = "http://localhost:30001/header.html"
+                HeaderHtml = "http://localhost/header.html"
             };
             _generatePdf.SetConvertOptions(options);
 
             string htmlCode = "";
             using (WebClient client = new WebClient())
             {
-                htmlCode = client.DownloadString("https://www.spacex.com/missions");
+                htmlCode = client.DownloadString("https://www.spacex.com/vehicles/starship/");
             }
 
             var pdf = _generatePdf.GetPDF(htmlCode);
+            var pdfStream = new System.IO.MemoryStream();
+            pdfStream.Write(pdf, 0, pdf.Length);
+            pdfStream.Position = 0;
+            return new FileStreamResult(pdfStream, "application/pdf");
+        }
+
+        /// <summary>
+        /// "Hardcode" html pdf generation as ByteArray with Footer and Replacements
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("FooterTest")]
+        public async Task<IActionResult> FooterTest()
+        {
+            var kv = new Dictionary<string, string>
+            {
+                { "username", "Veaer" },
+                { "age", "20" },
+                { "url", "google.com" }
+            };
+
+            var options = new ConvertOptions
+            {
+                FooterHtml = "http://localhost/footer.html",
+                Replacements = kv
+            };
+            _generatePdf.SetConvertOptions(options);
+
+            var data = new TestData
+            {
+                Text = "This is a test",
+                Number = 123456
+            };
+
+            var pdf = await _generatePdf.GetByteArray("Views/Test.cshtml", data);
             var pdfStream = new System.IO.MemoryStream();
             pdfStream.Write(pdf, 0, pdf.Length);
             pdfStream.Position = 0;
