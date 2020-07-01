@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <script charset="utf-8"> 
+    function replaceParams() {
+      var url = window.location.href        
+        .replace(/#$/, ""); // Remove last # if exist
+      // default params
+      //['page', 'section','sitepage','title','subsection','frompage','subsubsection','isodate','topage','doctitle','sitepages','webpage','time','date'];
+      var params = (url.split("?")[1] || "").split("&");
+      for (var i = 0; i < params.length; i++) {
+          var param = params[i].split("=");
+          var key = param[0];
+          var value = param[1] || '';
+          var regex = new RegExp('{' + key + '}', 'g');
+          document.body.innerText = document.body.innerText.replace(regex, value);
+      }      
+    }
+  </script>
+  </head>
+  <body onload="replaceParams()">
+    name: {username}
+    age: {age}
+    url: {url}
+    page {page}
+  </body>
+</html>
