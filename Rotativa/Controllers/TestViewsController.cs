@@ -154,7 +154,7 @@ namespace Rotativa.Controllers
         [Route("HeaderTest")]
         public async Task<IActionResult> HeaderTest()
         {
-            var options = new ConvertOptions
+            var options = new CustomOptions
             {
                 HeaderHtml = "http://localhost/header.html",
                 PageOrientation = Wkhtmltopdf.NetCore.Options.Orientation.Landscape
@@ -262,6 +262,28 @@ namespace Rotativa.Controllers
             };
 
             var pdf = await _generatePdf.GetByteArray("Views/Test.cshtml", data);
+            var pdfStream = new System.IO.MemoryStream();
+            pdfStream.Write(pdf, 0, pdf.Length);
+            pdfStream.Position = 0;
+            return new FileStreamResult(pdfStream, "application/pdf");
+        }
+
+
+        /// string form view pdf generation as ByteArray
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetFormByteArray")]
+        public async Task<IActionResult> GetFormByteArray()
+        {
+            var options = new ConvertOptions
+            {
+                EnableForms = true
+            };
+
+            _generatePdf.SetConvertOptions(options);
+
+            var pdf = await _generatePdf.GetByteArray("Views/Test_Form.cshtml");
             var pdfStream = new System.IO.MemoryStream();
             pdfStream.Write(pdf, 0, pdf.Length);
             pdfStream.Position = 0;

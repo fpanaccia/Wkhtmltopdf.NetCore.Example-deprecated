@@ -26,6 +26,20 @@ namespace Rotativa.Controllers
                         </html>";
 
 
+        readonly string formHtml =  "<!DOCTYPE html>"+
+                                    "<html>"+
+                                    "<body>"+
+                                    "<h2>HTML Forms</h2>"+
+                                    "<form>"+
+                                    "  <label for=\"fname\">First name:</label><br>"+
+                                    "  <input type =\"text\" id=\"fname\" name=\"fname\"><br>"+
+                                    "  <label for=\"lname\">Last name:</label><br>"+
+                                    "  <input type =\"text\" id=\"lname\" name=\"lname\"><br><br>"+
+                                    "</form> "+
+                                    "</body>"+
+                                    "</html>";
+
+
         public TestDynamicViewsController(IGeneratePdf generatePdf)
         {
             _generatePdf = generatePdf;
@@ -47,7 +61,6 @@ namespace Rotativa.Controllers
 
             return await _generatePdf.GetPdfViewInHtml(htmlView, data);
         }
-
 
         /// <summary>
         /// string view pdf generation as ByteArray
@@ -137,6 +150,28 @@ namespace Rotativa.Controllers
             }
 
             return await _generatePdf.GetPdf("notAView", data);
+        }
+
+        /// <summary>
+        /// string form view pdf generation as ByteArray
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetFormByteArray")]
+        public IActionResult GetFormByteArray()
+        {
+            var options = new ConvertOptions
+            {
+                EnableForms = true
+            };
+
+            _generatePdf.SetConvertOptions(options);
+
+            var pdf = _generatePdf.GetPDF(formHtml);
+            var pdfStream = new System.IO.MemoryStream();
+            pdfStream.Write(pdf, 0, pdf.Length);
+            pdfStream.Position = 0;
+            return new FileStreamResult(pdfStream, "application/pdf");
         }
     }
 }
